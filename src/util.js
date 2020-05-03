@@ -40,9 +40,24 @@ function sleep(sec) {
     chp.spawnSync('sleep', [sec])
 }
 
+function optiImg(img, mode='quant', colors=8) {
+    if(mode == 'none')
+        return img
+    var fname = path.join(
+        os.tmpdir(), 
+        uuid.v4() + '.png'
+    )
+    fs.writeFileSync(fname, img)
+    chp.spawnSync('imgyaso', [fname, '-m', mode, '-c', 8])
+    img = fs.readFileSync(fname)
+    safeUnlink(fname)
+    return img
+}
+
 exports.requestRetry = requestRetry
 exports.isDir = isDir
 exports.isPic = isPic
 exports.safeMkdir = safeMkdir
 exports.safeUnlink = safeUnlink
 exports.sleep = sleep
+exports.optiImg = optiImg

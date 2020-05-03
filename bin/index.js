@@ -4,9 +4,9 @@ var {URL} = require('url')
 var genEpub = require('gen-epub')
 var crypto = require('crypto');
 var iconv = require('iconv-lite')
-var config = require('./config.js')
+var config = require('../src/config.js')
 var processImg = require('./img.js')
-var {requestRetry, sleep} = require('./util.js');
+var {requestRetry, sleep} = require('../src/util.js');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 

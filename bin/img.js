@@ -6,30 +6,18 @@ var {Command} = require('commander');
 var cheerio = require('cheerio');
 var path = require('path')
 var uuid = require('uuid')
-var config = require('./config.js')
+var config = require('../src/config.js')
+var pkg = require('../package.json');
 var {
     requestRetry, 
     isDir, 
     safeMkdir,
     safeUnlink,
     sleep,
-} = require('./util.js')
+    optiImg,
+} = require('../src/util.js')
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-function optiImg(img, mode='quant', colors=8) {
-    if(mode == 'none')
-        return img
-    var fname = path.join(
-        os.tmpdir(), 
-        uuid.v4() + '.png'
-    )
-    fs.writeFileSync(fname, img)
-    chp.spawnSync('imgyaso', [fname, '-m', mode, '-c', 8])
-    img = fs.readFileSync(fname)
-    safeUnlink(fname)
-    return img
-}
 
 function processDir(dir) {
     var files = fs.readdirSync(dir);
@@ -137,15 +125,11 @@ function processImg(html, imgs, options={}) {
     return $.html();
 }
 
-module.exports = processImg
-module.exports.processImg = processImg
-module.exports.processImgMd = processImgMd
-
 function main() {
     
     var cmder = new Command()
     cmder.name('crawl-img')
-         .version(config.version)
+         .version(pkg.version)
          .arguments('<fname>', 'img file name of dir name')
          .option('-r, --retry <retry>', 'time of retrying', parseInt, 10)
          .option('-w, --wait <wait>', 'wait time in seconds', parseFloat, 0)
@@ -175,5 +159,7 @@ function main() {
         processFile(fname)
     }
 }
+
+module.exports = processImg
 
 if(module == require.main) main();
