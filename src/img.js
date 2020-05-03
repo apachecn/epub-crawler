@@ -6,7 +6,7 @@ var {Command} = require('commander');
 var cheerio = require('cheerio');
 var path = require('path')
 var uuid = require('uuid')
-var config = require('../src/config.js')
+var config = require('./config.js')
 var pkg = require('../package.json');
 var {
     requestRetry, 
@@ -15,7 +15,7 @@ var {
     safeUnlink,
     sleep,
     optiImg,
-} = require('../src/util.js')
+} = require('./util.js')
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
