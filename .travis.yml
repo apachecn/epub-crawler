@@ -1,0 +1,9 @@
+language: node_js
+node: 12
+
+deploy:
+    -   provider: npm
+        email: apachecn@163.com
+        api_key: $NPM_TOKEN
+        skip_cleanup: true
+        skip_existing: true
