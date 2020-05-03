@@ -1,5 +1,9 @@
 var request = require('sync-request');
 var chp = require('child_process')
+var os = require('os')
+var uuid = require('uuid')
+var fs = require('fs')
+var path = require('path')
 
 var isDir = s => fs.statSync(s).isDirectory()
 
