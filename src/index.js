@@ -49,7 +49,7 @@ function getToc(html)  {
         var $link = $links.eq(i)
         var url = $link.attr('href');
         if(!url) {
-            var text = $link.text()
+            var text = $link.text().trim()
             res.push(text)
             continue
         }

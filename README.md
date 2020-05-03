@@ -66,7 +66,7 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     
 +   `headers: {String: String}`（可空）
 
-    HTTP 请求的协议头，默认为空
+    HTTP 请求的协议头，默认为`{"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"}`
     
 +   `retry: Integer`（可空）
 
@@ -91,6 +91,20 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 +   `colors: Integer`（可空）
 
     imgyaso 接收的`colors`参数，默认为 8
+
+用于抓取我们的 PyTorch 1.4 文档的示例：
+
+```json
+{
+    "name": "PyTorch 1.4 中文文档 & 教程",
+    "url": "https://pytorch.apachecn.org/docs/1.4/",
+    "link": "ul.summary a:not([class]), ul.summary span",
+    "base": "https://pytorch.apachecn.org/docs/1.4/",
+    "title": ".markdown-section>h1",
+    "content": ".markdown-section",
+    "remove": "script, style, .markdown-section>div, footer, meta, iframe, iframe+img"
+}
+```
 
 ## 协议
 
