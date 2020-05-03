@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var chp = require('child_process')
 var fs = require('fs');
 var os = require('os')

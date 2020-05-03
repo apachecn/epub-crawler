@@ -106,6 +106,7 @@ _book
 
 # node.js
 node_modules
+package-lock.json
 
 # windows
 Thumbs.db

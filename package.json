@@ -1,6 +1,6 @@
 {
   "name": "epub-crawler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small tool to crawl webpages into EPUB.",
   "main": "src/index.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "url": "git+https://github.com/apachecn/epub-crawler.git"
   },
   "bin": {
-      "crawl-epub": "./src/index.js",
-      "crawl-img": "./src/img.js"
+    "crawl-epub": "./src/index.js",
+    "crawl-img": "./src/img.js"
   },
   "dependencies": {
     "cheerio": "*",
