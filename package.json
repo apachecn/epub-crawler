@@ -1,6 +1,6 @@
 {
   "name": "epub-crawler",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A small tool to crawl webpages into EPUB.",
   "main": "src/index.js",
   "scripts": {

@@ -62,6 +62,7 @@ function processImgMd(md, imgs, options={}) {
                 else
                     continue
             }
+            url = encodeURI(url).replace(/%25/g, '%')
             
             var picname = crypto.createHash('md5').update(url).digest('hex') + ".png";
             console.log(`pic: ${url} => ${picname}`)
@@ -105,6 +106,7 @@ function processImg(html, imgs, options={}) {
                 else
                     continue
             }
+            url = encodeURI(url).replace(/%25/g, '%')
             
             var picname = crypto.createHash('md5').update(url).digest('hex') + ".png";
             console.log(`pic: ${url} => ${picname}`)
