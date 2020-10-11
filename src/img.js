@@ -56,12 +56,9 @@ function processImgMd(md, imgs, options={}) {
         try {
             var url = rm[1]
             if(!url) continue
-            if(!url.startsWith('http')) {
-                if(options.pageUrl)
-                    url = new URL(url, options.pageUrl).toString()
-                else
-                    continue
-            }
+            if(options.pageUrl)
+                url = new URL(url, options.pageUrl).toString()
+            if(!url.startsWith('http')) continue
             url = encodeURI(url).replace(/%25/g, '%')
             
             var picname = crypto.createHash('md5').update(url).digest('hex') + ".png";

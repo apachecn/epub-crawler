@@ -2,7 +2,6 @@ module.exports = {
     name: '',
     url: '',
     link: '',
-    base: '',
     title: '',
     content: '',
     remove: '',

@@ -28,12 +28,12 @@ function getTocFromCfg() {
         timeout: config.timeout * 1000,
     }).body
     html = iconv.decode(html, config.encoding)
-    var toc = getToc(html);
+    var toc = getToc(html, config.url);
     return toc;
     
 }
 
-function getToc(html)  {
+function getToc(html, base)  {
         
     var $ = cheerio.load(html);
     
@@ -55,8 +55,9 @@ function getToc(html)  {
         }
         
         url = url.replace(/#.*$/, '')
-        if(config.base)
-            url = new URL(url, config.base).toString()
+        if(base)
+            url = new URL(url, base).toString()
+        if(!url.startsWith('http')) continue
         if(vis.has(url)) continue
         vis.add(url)
         res.push(url)
