@@ -44,10 +44,6 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 
     待抓取页面的列表，如果这个列表不为空，则抓取这个列表，忽略`url`和`link`
     
-+   `base: String`（可空）
-
-    链接<a>的前缀
-    
 +   `title: String`
 
     文章页面的标题选择器
