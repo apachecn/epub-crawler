@@ -93,9 +93,9 @@ function processImg(html, imgs, options={}) {
     for(var i = 0; i < $imgs.length; i++) {
         try {
             var $img = $imgs.eq(i);
-            var url = $img.attr('src') || 
-                      $img.data('src') ||
-                      $img.data('original-src')
+            var url = $img.data('src') ||
+                      $img.data('original-src') ||
+                      $img.attr('src')
             if(!url) continue
             if(!url.startsWith('http')) {
                 if(options.pageUrl)
