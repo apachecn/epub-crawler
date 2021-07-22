@@ -17,7 +17,7 @@
     "crawl-img": "./src/img.js"
   },
   "dependencies": {
-    "cheerio": "*",
+    "cheerio": "0.x.x",
     "gen-epub": "*",
     "iconv-lite": "*",
     "commander": "*",
