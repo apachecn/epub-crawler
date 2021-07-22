@@ -1,6 +1,6 @@
 {
   "name": "epub-crawler",
-  "version": "2020.1031.0",
+  "version": "2021.0722.0",
   "description": "A small tool to crawl webpages into EPUB.",
   "main": "src/index.js",
   "scripts": {
@@ -18,10 +18,10 @@
   },
   "dependencies": {
     "cheerio": "0.x.x",
+    "commander": "*",
     "gen-epub": "*",
     "iconv-lite": "*",
-    "commander": "*",
-    "uuid": "*",
-    "sync-request": "*"
+    "sync-request": "*",
+    "uuid": "*"
   }
 }
