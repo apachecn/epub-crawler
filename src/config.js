@@ -16,4 +16,5 @@ module.exports = {
     optiMode: 'quant',
     colors: 8,
     timeout: 8,
+	imgSrc: ['data-src', 'data-original-src', 'src'],
 }

@@ -82,6 +82,16 @@ function processImgMd(md, imgs, options={}) {
     return md
 }
 
+function getImgSrc($img) {
+	var url = ''
+	for(var prop of config.imgSrc) {
+		url = $img.attr(prop)
+		if(url) break
+	}
+	return url
+	
+}
+
 function processImg(html, imgs, options={}) {
     
     options.imgPrefix = options.imgPrefix || 'img/'
@@ -93,9 +103,7 @@ function processImg(html, imgs, options={}) {
     for(var i = 0; i < $imgs.length; i++) {
         try {
             var $img = $imgs.eq(i);
-            var url = $img.data('src') ||
-                      $img.data('original-src') ||
-                      $img.attr('src')
+            var url = getImgSrc($img)
             if(!url) continue
             if(!url.startsWith('http')) {
                 if(options.pageUrl)
