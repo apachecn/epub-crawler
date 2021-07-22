@@ -87,18 +87,21 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 +   `colors: Integer`（可空）
 
     imgyaso 接收的`colors`参数，默认为 8
+	
++   `imgSrc: String[]`（可空）
+
+    图片源的属性，默认为`["data-src", "data-original-src", "src"]`
 
 用于抓取我们的 PyTorch 1.4 文档的示例：
 
 ```json
 {
     "name": "PyTorch 1.4 中文文档 & 教程",
-    "url": "https://pytorch.apachecn.org/docs/1.4/",
-    "link": "ul.summary a:not([class]), ul.summary span",
-    "base": "https://pytorch.apachecn.org/docs/1.4/",
-    "title": ".markdown-section>h1",
-    "content": ".markdown-section",
-    "remove": "script, style, .markdown-section>div, footer, meta, iframe, iframe+img"
+    "url": "https://gitee.com/apachecn/pytorch-doc-zh/blob/master/docs/1.4/SUMMARY.md",
+    "link": ".markdown-body li a",
+    "title": ".markdown-body>h1",
+    "content": ".markdown-body",
+    "remove": "a.anchor",
 }
 ```
 
