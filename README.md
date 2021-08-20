@@ -92,7 +92,7 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 	
 +   `proxy: String`（可空）
 
-    要使用的索引，格式为`<protocal>://<host>:<port>`
+    要使用的代理，格式为`<protocal>://<host>:<port>`
 	
 +   `textThreads: Integer`（可空）
 
