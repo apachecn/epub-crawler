@@ -7,7 +7,7 @@
 通过 pip（推荐）：
 
 ```
-pip install epub-crawler
+pip install EpubCrawler
 ```
 
 从源码安装：
