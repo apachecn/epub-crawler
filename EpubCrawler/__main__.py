@@ -143,6 +143,7 @@ def main():
             articles.append({'title': url, 'content': ''})
         
     for h in hdls: h.result()
+    articles = [art for art in articles if art]
             
     gen_epub(articles, imgs)
     print('done...')
