@@ -103,6 +103,8 @@ def tr_download_page(url, art, imgs):
         print(ex)
 
 def main():
+    global get_toc
+    global get_article
 
     cfg_fname = sys.argv[1] \
         if len(sys.argv) > 1 \
@@ -120,6 +122,10 @@ def main():
         }
         config['proxy'] = proxies
     set_img_pool(ThreadPoolExecutor(config['imgThreads']))
+    if config['external']:
+        mod = load_module(config['external'])
+        get_toc = getattr(mod, 'get_toc', get_toc)
+        get_article = getattr(mod, 'get_article', get_article)
     
     toc = get_toc_from_cfg()
     articles = []
