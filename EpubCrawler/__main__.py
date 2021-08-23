@@ -47,7 +47,7 @@ def get_toc(html, base):
         url = el_link.attr('href')
         if not url:
             text = el_link.text().strip()
-            re.append(text)
+            res.append(text)
             continue
             
         url = re.sub(r'#.*$', '', url)
