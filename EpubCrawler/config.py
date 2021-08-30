@@ -22,4 +22,5 @@ config = {
     'proxy': '',
     'textThreads': 5,
     'imgThreads': 5,
+    'external': None,
 }

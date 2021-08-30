@@ -40,7 +40,9 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     
 +   `list: [String]`（可空）
 
-    待抓取页面的列表，如果这个列表不为空，则抓取这个列表，忽略`url`和`link`
+    待抓取页面的列表，如果这个列表不为空，则抓取这个列表
+	
+	⚠该配置项会覆盖`url`、`link`和`external`⚠
     
 +   `title: String`
 
@@ -101,6 +103,20 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 +   `imgThreads: Integer`（可空）
 
     爬取图片的线程数，默认为 5
+	
++   `external: String`（可空）
+
+    外部脚本的路径。脚本中可定义`get_toc`和`get_article`函数来自定义获取目录和正文的逻辑。
+	
+	`get_toc(html: string, url: string): [string]`
+	
+	接受页面 HTML 和 URL，返回目录列表
+	
+	`get_article(html: string, url: string): {'title': string, 'content': string}`
+	
+	接受页面 HTML 和 URL，返回字典，`title`键是标题，`content`键是正文
+	
+	⚠该配置项会覆盖`link`，`title`和`content`，但不会覆盖`list`⚠
 
 用于抓取我们的 PyTorch 1.4 文档的示例：
 

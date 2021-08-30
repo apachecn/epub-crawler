@@ -5,6 +5,10 @@ from imgyaso import pngquant_bts, \
     adathres_bts, grid_bts, noise_bts, trunc_bts
 import os
 import shutil
+import tempfile
+import sys
+from os import path
+import uuid
 
 is_pic = lambda x: x.endswith('.jpg') or \
                    x.endswith('.jpeg') or \
@@ -44,3 +48,22 @@ def opti_img(img, mode, colors):
         return adathres_bts(img)
     else:
         return img
+        
+def safe_remove(name):
+    try: os.remove(name)
+    except: pass
+
+def load_module(fname):
+    if not path.isfile(fname) or \
+        not fname.endswith('.py'):
+        raise FileNotFoundError('外部模块应是 *.py 文件')
+    tmpdir = path.join(tempfile.gettempdir(), 'load_module')
+    safe_mkdir(tmpdir)
+    if tmpdir not in sys.path:
+        sys.path.insert(0, tmpdir)
+    mod_name = 'x' + uuid.uuid4().hex
+    nfname = path.join(tmpdir, mod_name + '.py')
+    shutil.copy(fname, nfname)
+    mod = __import__(mod_name)
+    safe_remove(nfname)
+    return mod
