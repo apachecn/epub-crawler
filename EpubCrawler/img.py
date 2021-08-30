@@ -31,7 +31,7 @@ def tr_download_img(url, imgs, picname):
             proxies=config['proxy'],
         ).content
         data = opti_img(data, config['optiMode'], config['colors'])
-        imgs[picname] = data
+        imgs[picname] = data or b''
         time.sleep(config['wait'])
     except Exception as ex:
         print(ex)
