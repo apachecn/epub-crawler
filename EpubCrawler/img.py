@@ -59,6 +59,7 @@ def process_img(html, imgs, **kw):
             hdls.append(hdl)
             
         el_img.attr('src', kw['img_prefix'] + picname)
+        el_img.attr('data-original-src', url)
         
     for h in hdls: h.result()
     return root.html()
