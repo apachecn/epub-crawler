@@ -29,7 +29,7 @@ def get_toc_from_cfg():
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
-    ).content.decode(config['encoding'])
+    ).content.decode(config['encoding'], 'ignore')
     return get_toc(html, config['url'])
     
 def get_toc(html, base):
@@ -91,7 +91,7 @@ def tr_download_page(url, art, imgs):
             headers=config['headers'],
             timeout=config['timeout'],
             proxies=config['proxy'],
-        ).content.decode(config['encoding'])
+        ).content.decode(config['encoding'], 'ignore')
         art.update(get_article(html, url))
         art['content'] = process_img(
             art['content'], imgs,
