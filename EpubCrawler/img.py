@@ -9,6 +9,8 @@ from .util import *
 from .config import config
 
 img_pool = ThreadPoolExecutor(5)
+RE_DATA_URL = r'^data:image/\w+;base64,'
+
 
 def set_img_pool(pool):
     global img_pool
@@ -36,6 +38,19 @@ def tr_download_img(url, imgs, picname):
     except Exception as ex:
         print(ex)
     
+def process_img_data_url(url, el_img, imgs):
+    if not re.search(RE_DATA_URL, url):
+        return False
+    picname = hashlib.md5(url.encode('utf-8')).hexdigest() + '.png'
+    print(f'pic: {url} => {picname}')
+    if picname not in imgs:
+        enco_data = re.sub(RE_DATA_URL, '', url)
+        data = base64.b64decode(enco_data.encode('utf-8'))
+        data = opti_img(data, config['optiMode'], config['colors'])
+        imgs[picname] = data
+    el_img.attr('src', kw['img_prefix'] + picname)
+    return True
+    
 def process_img(html, imgs, **kw):
     kw.setdefault('img_prefix', 'img/')
     
@@ -47,6 +62,8 @@ def process_img(html, imgs, **kw):
         el_img = el_imgs.eq(i)
         url = get_img_src(el_img)
         if not url: continue
+        if process_img_data_url(url, el_img, imgs):
+            continue
         if not url.startswith('http'):
             if kw.get('page_url'):
                 url = urljoin(kw.get('page_url'), url)
