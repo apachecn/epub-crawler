@@ -40,7 +40,7 @@ def tr_download_img(url, imgs, picname):
     except Exception as ex:
         print(ex)
     
-def process_img_data_url(url, el_img, imgs):
+def process_img_data_url(url, el_img, imgs, **kw):
     if not re.search(RE_DATA_URL, url):
         return False
     picname = hashlib.md5(url.encode('utf-8')).hexdigest() + '.png'
@@ -64,7 +64,7 @@ def process_img(html, imgs, **kw):
         el_img = el_imgs.eq(i)
         url = get_img_src(el_img)
         if not url: continue
-        if process_img_data_url(url, el_img, imgs):
+        if process_img_data_url(url, el_img, imgs, **kw):
             continue
         if not url.startswith('http'):
             if kw.get('page_url'):
