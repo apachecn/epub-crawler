@@ -5,6 +5,7 @@ from urllib.parse import urljoin, quote_plus
 import hashlib
 from pyquery import PyQuery as pq
 import time
+import re
 from .util import *
 from .config import config
 
