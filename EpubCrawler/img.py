@@ -6,6 +6,7 @@ import hashlib
 from pyquery import PyQuery as pq
 import time
 import re
+import base64
 from .util import *
 from .config import config
 
