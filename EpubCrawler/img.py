@@ -30,6 +30,7 @@ def tr_download_img(url, imgs, picname):
         data = request_retry(
             'GET', url,
             headers=config['headers'],
+            check_status=config['checkStatus'],
             retry=config['retry'],
             timeout=config['timeout'],
             proxies=config['proxy'],

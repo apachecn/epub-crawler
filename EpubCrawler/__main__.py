@@ -26,6 +26,7 @@ def get_toc_from_cfg():
     html = request_retry(
         'GET', config['url'],
         retry=config['retry'],
+        check_status=config['checkStatus'],
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
@@ -88,6 +89,7 @@ def tr_download_page(url, art, imgs):
         html = request_retry(
             'GET', url,
             retry=config['retry'],
+            check_status=config['checkStatus'],
             headers=config['headers'],
             timeout=config['timeout'],
             proxies=config['proxy'],
