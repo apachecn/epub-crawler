@@ -96,6 +96,10 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 
     要使用的代理，格式为`<protocal>://<host>:<port>`
 	
++   `checkStatus: Bool`（可空）
+
+    是否检查状态码。如果为`true`并且状态码非 2XX，当作失败。默认为`False`。
+	
 +   `textThreads: Integer`（可空）
 
     爬取文本的线程数，默认为 5
