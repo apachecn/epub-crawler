@@ -23,4 +23,5 @@ config = {
     'textThreads': 5,
     'imgThreads': 5,
     'external': None,
+    'checkStatus': False,
 }

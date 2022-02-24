@@ -26,11 +26,13 @@ def safe_rmdir(dir):
     try: shutil.rmtree(dir)
     except: pass
 
-def request_retry(method, url, retry=10, **kw):
+def request_retry(method, url, retry=10, check_status=False, **kw):
     kw.setdefault('timeout', 10)
     for i in range(retry):
         try:
-            return requests.request(method, url, **kw)
+            r = requests.request(method, url, **kw)
+            if check_status: r.raise_for_status()
+            return r
         except KeyboardInterrupt as e:
             raise e
         except Exception as e:
