@@ -107,6 +107,7 @@ def tr_download_page(url, art, imgs):
         art.update(get_article(html, url))
         save_article(hash, art)
     else:
+        print(f'{url} 已存在于本地缓存中')
         art.update(cache)
     art['content'] = process_img(
         art['content'], imgs,

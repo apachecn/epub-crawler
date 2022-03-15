@@ -47,6 +47,7 @@ def tr_download_img(url, imgs, picname):
         data = opti_img(data, config['optiMode'], config['colors']) or b''
         save_img(hash, config['optiMode'], data)
     else:
+        print(f'{url} 已存在于本地缓存中')
         data = cache
     imgs[picname] = data
     time.sleep(config['wait'])
