@@ -25,21 +25,26 @@ def get_img_src(el_img):
         if url: break
     return url
     
-def tr_download_img(url, imgs, picname):
+def tr_download_img_safe(url, imgs, picname):
     try:
-        data = request_retry(
-            'GET', url,
-            headers=config['headers'],
-            check_status=config['checkStatus'],
-            retry=config['retry'],
-            timeout=config['timeout'],
-            proxies=config['proxy'],
-        ).content
-        data = opti_img(data, config['optiMode'], config['colors'])
-        imgs[picname] = data or b''
-        time.sleep(config['wait'])
+        tr_download_img(url, imgs, picname)
     except Exception as ex:
         print(ex)
+        imgs[picname] = b''
+
+def tr_download_img(url, imgs, picname):
+    
+    data = request_retry(
+        'GET', url,
+        headers=config['headers'],
+        check_status=config['checkStatus'],
+        retry=config['retry'],
+        timeout=config['timeout'],
+        proxies=config['proxy'],
+    ).content
+    data = opti_img(data, config['optiMode'], config['colors'])
+    imgs[picname] = data or b''
+    time.sleep(config['wait'])
     
 def process_img_data_url(url, el_img, imgs, **kw):
     if not re.search(RE_DATA_URL, url):
