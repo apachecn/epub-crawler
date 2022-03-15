@@ -161,7 +161,7 @@ def main():
         
         art = {}
         articles.append(art)
-        hdl = text_pool.submit(tr_download_page, url, art, imgs)
+        hdl = text_pool.submit(tr_download_page_safe, url, art, imgs)
         hdls.append(hdl)
             
         

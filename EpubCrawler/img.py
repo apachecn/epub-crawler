@@ -86,7 +86,7 @@ def process_img(html, imgs, **kw):
         picname = hashlib.md5(url.encode('utf-8')).hexdigest() + '.png'
         print(f'pic: {url} => {picname}')
         if picname not in imgs:
-            hdl = img_pool.submit(tr_download_img, url, imgs, picname)
+            hdl = img_pool.submit(tr_download_img_safe, url, imgs, picname)
             hdls.append(hdl)
             
         el_img.attr('src', kw['img_prefix'] + picname)
