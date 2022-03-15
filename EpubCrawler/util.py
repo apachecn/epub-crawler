@@ -80,9 +80,16 @@ def load_article(hash):
     if not path.isfile(fname):
         return None
     try:
-        return json.loads(open(fname, encoding='utf8').read())
+        art = json.loads(open(fname, encoding='utf8').read())
     except Exception as ex: 
         print(ex)
+        return None
+        
+    if isinstance(art, dict) and \
+        art.get('title', '') and \
+        art.get('content', ''):
+        return art
+    else:
         return None
         
 def save_article(hash, art):
@@ -95,7 +102,11 @@ def load_img(hash, opti):
     fname = path.join(bundle_dir, cache_dir, f'{hash}-{opti}.png')
     if not path.isfile(fname):
         return None
-    return open(fname, 'rb').read()
+    img = open(fname, 'rb').read()
+    if img != b'':
+        return img
+    else:
+        return None
     
 def save_img(hash, opti, img): 
     dir = path.join(bundle_dir, cache_dir)
