@@ -33,17 +33,22 @@ def tr_download_img_safe(url, imgs, picname):
         imgs[picname] = b''
 
 def tr_download_img(url, imgs, picname):
-    
-    data = request_retry(
-        'GET', url,
-        headers=config['headers'],
-        check_status=config['checkStatus'],
-        retry=config['retry'],
-        timeout=config['timeout'],
-        proxies=config['proxy'],
-    ).content
-    data = opti_img(data, config['optiMode'], config['colors'])
-    imgs[picname] = data or b''
+    hash = hashlib.md5(url.encode('utf-8')).hexdigest()
+    cache = load_img(hash, config['optiMode'])
+    if cache is None:
+        data = request_retry(
+            'GET', url,
+            headers=config['headers'],
+            check_status=config['checkStatus'],
+            retry=config['retry'],
+            timeout=config['timeout'],
+            proxies=config['proxy'],
+        ).content
+        data = opti_img(data, config['optiMode'], config['colors']) or b''
+        save_img(hash, config['optiMode'], data)
+    else:
+        data = cache
+    imgs[picname] = data
     time.sleep(config['wait'])
     
 def process_img_data_url(url, el_img, imgs, **kw):
