@@ -85,7 +85,7 @@ def get_article(html, url):
         
     return {'title': title, 'content': co}
     
-def tr_download_page_safe(url, art, imgs)
+def tr_download_page_safe(url, art, imgs):
     try:
         tr_download_page(url, art, imgs)
     except Exception as ex:
