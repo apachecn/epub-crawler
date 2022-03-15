@@ -9,6 +9,7 @@ import time
 from os import path
 import re
 from concurrent.futures import ThreadPoolExecutor
+import hashlib
 from GenEpub import gen_epub
 from . import *
 from .util import *
@@ -84,8 +85,17 @@ def get_article(html, url):
         
     return {'title': title, 'content': co}
     
-def tr_download_page(url, art, imgs):
+def tr_download_page_safe(url, art, imgs)
     try:
+        tr_download_page(url, art, imgs)
+    except Exception as ex:
+        print(ex)
+
+def tr_download_page(url, art, imgs):
+    
+    hash = hashlib.md5(url.encode('utf-8')).hexdigest()
+    cache = load_article(hash)
+    if cache is None:
         html = request_retry(
             'GET', url,
             retry=config['retry'],
@@ -95,14 +105,16 @@ def tr_download_page(url, art, imgs):
             proxies=config['proxy'],
         ).content.decode(config['encoding'], 'ignore')
         art.update(get_article(html, url))
-        art['content'] = process_img(
-            art['content'], imgs,
-            page_url=url,
-            img_prefix='../Images/',
-        )
-        time.sleep(config['wait'])
-    except Exception as ex:
-        print(ex)
+        save_article(hash, art)
+    else:
+        art.update(cache)
+    art['content'] = process_img(
+        art['content'], imgs,
+        page_url=url,
+        img_prefix='../Images/',
+    )
+    time.sleep(config['wait'])
+    
 
 def main():
     global get_toc
@@ -142,13 +154,15 @@ def main():
     hdls = []
     for url in toc:
         print(f'page: {url}')
-        if url.startswith('http'):
-            art = {}
-            articles.append(art)
-            hdl = text_pool.submit(tr_download_page, url, art, imgs)
-            hdls.append(hdl)
-        else:
+        if not re.search(r'^https://', url):
             articles.append({'title': url, 'content': ''})
+            continue
+        
+        art = {}
+        articles.append(art)
+        hdl = text_pool.submit(tr_download_page, url, art, imgs)
+        hdls.append(hdl)
+            
         
     for h in hdls: h.result()
     articles = [art for art in articles if art]
