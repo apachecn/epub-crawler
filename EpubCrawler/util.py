@@ -9,6 +9,11 @@ import tempfile
 import sys
 from os import path
 import uuid
+import tempfile
+import json
+
+bundle_dir = tempfile.gettempdir()
+cache_dir = 'epubcralwer'
 
 is_pic = lambda x: x.endswith('.jpg') or \
                    x.endswith('.jpeg') or \
@@ -69,3 +74,31 @@ def load_module(fname):
     mod = __import__(mod_name)
     safe_remove(nfname)
     return mod
+    
+def load_article(hash):
+    fname = path.join(bundle_dir, cache_dir, f'{hash}.json')
+    if not path.isfile(fname):
+        return None
+    try:
+        return json.loads(open(fname, encoding='utf8').read())
+    except Exception as ex: 
+        print(ex)
+        return None
+        
+def save_article(hash, art):
+    dir = path.join(bundle_dir, cache_dir)
+    safe_mkdir(dir)
+    fname = path.join(dir, f'{hash}.json')
+    open(fname, 'w', encoding='utf-8').write(json.dumps(art))
+    
+def load_img(hash, opti):
+    fname = path.join(bundle_dir, cache_dir, f'{hash}-{opti}.png')
+    if not path.isfile(fname):
+        return None
+    return open(fname, 'rb').read()
+    
+def save_img(hash, opti, img): 
+    dir = path.join(bundle_dir, cache_dir)
+    safe_mkdir(dir)
+    fname = path.join(dir, f'{hash}-{opti}.png')
+    open(fname, 'wb').write(img)
