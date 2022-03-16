@@ -94,7 +94,7 @@ def tr_download_page_safe(url, art, imgs):
 def tr_download_page(url, art, imgs):
     hash = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache = load_article(hash)
-    if cache is not None:
+    if cache is not None and config['cache']:
         print(f'{url} 已存在于本地缓存中')
         art.update(cache)
         art['content'] = process_img(

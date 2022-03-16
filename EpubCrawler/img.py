@@ -34,7 +34,7 @@ def tr_download_img_safe(url, imgs, picname):
 def tr_download_img(url, imgs, picname):
     hash = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache = load_img(hash, config['optiMode'])
-    if cache is not None:
+    if cache is not None and config['cache']:
         print(f'{url} 已存在于本地缓存中')
         imgs[picname] = cache
         return
