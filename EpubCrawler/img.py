@@ -29,27 +29,28 @@ def tr_download_img_safe(url, imgs, picname):
     try:
         tr_download_img(url, imgs, picname)
     except Exception as ex:
-        print(ex)
-        imgs[picname] = b''
+        print(f'{url} 下载失败：{ex}')
 
 def tr_download_img(url, imgs, picname):
     hash = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache = load_img(hash, config['optiMode'])
-    if cache is None:
-        data = request_retry(
-            'GET', url,
-            headers=config['headers'],
-            check_status=config['checkStatus'],
-            retry=config['retry'],
-            timeout=config['timeout'],
-            proxies=config['proxy'],
-        ).content
-        data = opti_img(data, config['optiMode'], config['colors']) or b''
-        save_img(hash, config['optiMode'], data)
-    else:
+    if cache is not None:
         print(f'{url} 已存在于本地缓存中')
-        data = cache
+        imgs[picname] = cache
+        return
+
+    data = request_retry(
+        'GET', url,
+        headers=config['headers'],
+        check_status=config['checkStatus'],
+        retry=config['retry'],
+        timeout=config['timeout'],
+        proxies=config['proxy'],
+    ).content
+    print(f'{url} 下载成功')
+    data = opti_img(data, config['optiMode'], config['colors']) or b''
     imgs[picname] = data
+    save_img(hash, config['optiMode'], data)
     time.sleep(config['wait'])
     
 def process_img_data_url(url, el_img, imgs, **kw):

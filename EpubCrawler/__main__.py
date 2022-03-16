@@ -89,7 +89,7 @@ def tr_download_page_safe(url, art, imgs):
     try:
         tr_download_page(url, art, imgs)
     except Exception as ex:
-        print(ex)
+        print(f'{url} 下载失败：{ex}')
 
 def tr_download_page(url, art, imgs):
     hash = hashlib.md5(url.encode('utf-8')).hexdigest()
