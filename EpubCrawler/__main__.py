@@ -128,17 +128,26 @@ def update_config(user_cfg):
     global get_article
     
     config.update(user_cfg)
+    
     if config['proxy']:
         proxies = {
             'http': config['proxy'],
             'https': config['proxy'],
         }
         config['proxy'] = proxies
+    
     set_img_pool(ThreadPoolExecutor(config['imgThreads']))
+    
     if config['external']:
         mod = load_module(config['external'])
         get_toc = getattr(mod, 'get_toc', get_toc)
         get_article = getattr(mod, 'get_article', get_article)
+        
+    if not config['timeout']:
+        config['timeout'] = (
+            config['connTimeout'],
+            config['readTimeout'],
+        )
 
 def main():
     cfg_fname = sys.argv[1] \
