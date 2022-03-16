@@ -26,4 +26,5 @@ config = {
     'imgThreads': 5,
     'external': None,
     'checkStatus': False,
+    'cache': True,
 }
