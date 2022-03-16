@@ -123,18 +123,10 @@ def tr_download_page(url, art, imgs):
     time.sleep(config['wait'])
     
 
-def main():
+def update_config(user_cfg):
     global get_toc
     global get_article
-
-    cfg_fname = sys.argv[1] \
-        if len(sys.argv) > 1 \
-        else 'config.json'
-    if not path.exists(cfg_fname):
-        print('please provide config file')
-        return
-        
-    user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
+    
     config.update(user_cfg)
     if config['proxy']:
         proxies = {
@@ -147,6 +139,17 @@ def main():
         mod = load_module(config['external'])
         get_toc = getattr(mod, 'get_toc', get_toc)
         get_article = getattr(mod, 'get_article', get_article)
+
+def main():
+    cfg_fname = sys.argv[1] \
+        if len(sys.argv) > 1 \
+        else 'config.json'
+    if not path.exists(cfg_fname):
+        print('please provide config file')
+        return
+        
+    user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
+    update_config(user_cfg)
     
     toc = get_toc_from_cfg()
     articles = []
