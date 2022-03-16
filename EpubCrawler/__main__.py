@@ -92,23 +92,29 @@ def tr_download_page_safe(url, art, imgs):
         print(ex)
 
 def tr_download_page(url, art, imgs):
-    
     hash = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache = load_article(hash)
-    if cache is None:
-        html = request_retry(
-            'GET', url,
-            retry=config['retry'],
-            check_status=config['checkStatus'],
-            headers=config['headers'],
-            timeout=config['timeout'],
-            proxies=config['proxy'],
-        ).content.decode(config['encoding'], 'ignore')
-        art.update(get_article(html, url))
-        save_article(hash, art)
-    else:
+    if cache is not None:
         print(f'{url} 已存在于本地缓存中')
         art.update(cache)
+        art['content'] = process_img(
+            art['content'], imgs,
+            page_url=url,
+            img_prefix='../Images/',
+        )
+        return
+    
+    html = request_retry(
+        'GET', url,
+        retry=config['retry'],
+        check_status=config['checkStatus'],
+        headers=config['headers'],
+        timeout=config['timeout'],
+        proxies=config['proxy'],
+    ).content.decode(config['encoding'], 'ignore')
+    print(f'{url} 下载成功')
+    art.update(get_article(html, url))
+    save_article(hash, art)
     art['content'] = process_img(
         art['content'], imgs,
         page_url=url,
