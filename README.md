@@ -46,7 +46,7 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     
 +   `title: String`
 
-    文章页面的标题选择器
+    文章页面的标题选择器（默认为`title`）
     
 +   `content: String`
 
