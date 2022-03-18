@@ -4,7 +4,7 @@ config = {
     'name': '',
     'url': '',
     'link': '',
-    'title': '',
+    'title': 'title',
     'content': '',
     'remove': '',
     'retry': 10,
