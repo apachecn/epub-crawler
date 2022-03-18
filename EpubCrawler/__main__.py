@@ -173,7 +173,7 @@ def main():
     hdls = []
     for url in toc:
         print(f'page: {url}')
-        if not re.search(r'^https://', url):
+        if not re.search(r'^https?://', url):
             articles.append({'title': url, 'content': ''})
             continue
         
