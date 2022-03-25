@@ -74,7 +74,17 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     
 +   `timeout: Integer`（可空）
 
-    HTTP 请求的超时（秒），默认为 8
+    同时设置 HTTP 请求的连接和读取超时（秒）
+    
+    ⚠会覆盖`connTimeout`和`readTimeout`
+
++   `connTimeout: Integer`（可空）
+
+    HTTP 请求的连接超时（秒），默认为 1
+
++   `readTimeout: Integer`（可空）
+
+    HTTP 请求的读取超时（秒），默认为 60
     
 +   `encoding: String`（可空）
 
