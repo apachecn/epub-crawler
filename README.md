@@ -129,9 +129,7 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     "name": "PyTorch 1.4 中文文档 & 教程",
     "url": "https://gitee.com/apachecn/pytorch-doc-zh/blob/master/docs/1.4/SUMMARY.md",
     "link": ".markdown-body li a",
-    "title": ".markdown-body>h1",
-    "content": ".markdown-body",
-    "remove": "a.anchor",
+    "remove": "a.anchor"
 }
 ```
 
