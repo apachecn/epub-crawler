@@ -134,6 +134,9 @@ def update_config(user_cfg):
     
     config.update(user_cfg)
     
+    if not config['title']:
+        config['title'] = 'title'
+    
     if config['proxy']:
         proxies = {
             'http': config['proxy'],
