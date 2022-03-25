@@ -2,3 +2,4 @@ requests
 pyquery
 GenEpub
 imgyaso
+readability-lxml
