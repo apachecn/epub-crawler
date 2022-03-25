@@ -44,13 +44,13 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 	
 	⚠该配置项会覆盖`url`、`link`和`external`⚠
     
-+   `title: String`
++   `title: String`（可空）
 
     文章页面的标题选择器（默认为`title`）
     
-+   `content: String`
++   `content: String`（可空）
 
-    文章页面的内容选择器
+    文章页面的内容选择器，为空则智能分析
 
 +   `remove: String`（可空）
 
