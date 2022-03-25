@@ -10,6 +10,7 @@ from os import path
 import re
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
+from readability import Document
 from GenEpub import gen_epub
 from . import *
 from .util import *
@@ -73,11 +74,15 @@ def get_article(html, url):
     title = el_title.text().strip()
     el_title.remove()
     
-    el_co = root(config['content'])
-    co = '\r\n'.join([
-        el_co.eq(i).html()
-        for i in range(len(el_co))
-    ])
+    if config['content']:
+        el_co = root(config['content'])
+        co = '\r\n'.join([
+            el_co.eq(i).html()
+            for i in range(len(el_co))
+        ])
+    else:
+        co = Document(str(root)).summary()
+        co = pq(co).find('body').html()
     
     if config['credit']:
         credit = f"<blockquote>原文：<a href='{url}'>{url}</a></blockquote>"
