@@ -30,15 +30,15 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
     
     元信息中的书籍名称，也是在当前工作目录中保存文件的名称
     
-+   `url: String`（可空）
++   `url: String`（和`list`二选一）
 
     目录页面的 URL
     
-+   `link: String`（可空）
++   `link: String`（若`url`非空则必填）
 
     链接`<a>`的选择器
     
-+   `list: [String]`（可空）
++   `list: [String]`（和`url`二选一）
 
     待抓取页面的列表，如果这个列表不为空，则抓取这个列表
 	
