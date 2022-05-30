@@ -65,6 +65,9 @@ def get_toc(html, base):
     return res
     
 def get_article(html, url):
+    # 预处理掉 XML 声明和命名空间
+    html = re.sub(r'<\?xml[^>]*\?>', '', html)
+    html = re.sub(r'xmlns=".+?"', '', html)
     root = pq(html)
     
     if config['remove']:
