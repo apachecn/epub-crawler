@@ -145,7 +145,9 @@ def main():
     user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
     update_config(user_cfg)
     
-    if config['selenium']: crawl_sele(args)
+    if config['selenium']: 
+        crawl_sele(args)
+        return
     
     toc = get_toc_from_cfg()
     articles = []
