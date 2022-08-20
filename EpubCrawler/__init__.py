@@ -10,4 +10,4 @@ from . import util
 __author__ = "ApacheCN"
 __email__ = "apachecn@163.com"
 __license__ = "SATA"
-__version__ = "2022.5.30.0"
+__version__ = "2022.8.20.0"
