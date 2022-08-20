@@ -16,7 +16,7 @@ import traceback
 from .util import *
 from .img import process_img
 from .config import config
-from .get_article import get_article
+from .common import *
 
 trlocal = threading.local()
 drivers = []

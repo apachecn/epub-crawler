@@ -17,7 +17,7 @@ from .util import *
 from .img import *
 from .config import config
 from .sele_crawler import crawl_sele
-from .get_article import get_article
+from .common import *
 
 def get_toc_from_cfg():
     if config['list'] and len(config['list']) > 0:
