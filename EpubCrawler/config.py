@@ -27,4 +27,6 @@ config = {
     'external': None,
     'checkStatus': False,
     'cache': True,
+    'waitContent': False,
+    'debug': False,
 }

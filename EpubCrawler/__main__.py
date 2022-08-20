@@ -16,6 +16,8 @@ from . import *
 from .util import *
 from .img import *
 from .config import config
+from .sele_crawler import crawl_sele
+from .get_article import get_article
 
 def get_toc_from_cfg():
     if config['list'] and len(config['list']) > 0:
@@ -63,35 +65,7 @@ def get_toc(html, base):
         res.append(url)
         
     return res
-    
-def get_article(html, url):
-    # 预处理掉 XML 声明和命名空间
-    html = re.sub(r'<\?xml[^>]*\?>', '', html)
-    html = re.sub(r'xmlns=".+?"', '', html)
-    root = pq(html)
-    
-    if config['remove']:
-        root(config['remove']).remove()
-        
-    el_title = root(config['title']).eq(0)
-    title = el_title.text().strip()
-    el_title.remove()
-    
-    if config['content']:
-        el_co = root(config['content'])
-        co = '\r\n'.join([
-            el_co.eq(i).html()
-            for i in range(len(el_co))
-        ])
-    else:
-        co = Document(str(root)).summary()
-        co = pq(co).find('body').html()
-    
-    if config['credit']:
-        credit = f"<blockquote>原文：<a href='{url}'>{url}</a></blockquote>"
-        co = credit + co
-        
-    return {'title': title, 'content': co}
+
     
 def tr_download_page_safe(url, art, imgs):
     try:
@@ -170,6 +144,8 @@ def main():
         
     user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
     update_config(user_cfg)
+    
+    if config['selenium']: crawl_sele(args)
     
     toc = get_toc_from_cfg()
     articles = []

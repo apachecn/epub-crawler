@@ -3,3 +3,4 @@ pyquery
 GenEpub
 imgyaso
 readability-lxml
+selenium

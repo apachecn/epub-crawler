@@ -12,6 +12,8 @@ import uuid
 import tempfile
 import json
 
+RE_DATA_URL = r'^data:image/\w+;base64,'
+
 bundle_dir = tempfile.gettempdir()
 cache_dir = 'epubcralwer'
 
