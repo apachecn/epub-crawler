@@ -29,4 +29,5 @@ config = {
     'cache': True,
     'waitContent': False,
     'debug': False,
+    'selenium': False,
 }
