@@ -138,7 +138,7 @@ def create_driver():
     
     return driver
     
-def crawl_sele(args):
+def crawl_sele():
     articles = [{
         'title': config['name'],
         'content': f"<p>来源：<a href='" + config['url'] + "'>" + config['url'] + "</a></p>"

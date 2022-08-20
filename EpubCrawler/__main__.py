@@ -146,7 +146,7 @@ def main():
     update_config(user_cfg)
     
     if config['selenium']: 
-        crawl_sele(args)
+        crawl_sele()
         return
     
     toc = get_toc_from_cfg()
