@@ -34,6 +34,7 @@ def get_toc_from_cfg():
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
+        verify=False,
     ).content.decode(config['encoding'], 'ignore')
     return get_toc(html, config['url'])
     
@@ -93,6 +94,7 @@ def tr_download_page(url, art, imgs):
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
+        verify=False,
     ).content.decode(config['encoding'], 'ignore')
     print(f'{url} 下载成功')
     art.update(get_article(html, url))
