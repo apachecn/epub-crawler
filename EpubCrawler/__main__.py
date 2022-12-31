@@ -4,6 +4,7 @@
 from urllib.parse import urljoin
 import sys
 import json
+import warnings
 from pyquery import PyQuery as pq
 import time
 from os import path
@@ -18,6 +19,8 @@ from .img import *
 from .config import config
 from .sele_crawler import crawl_sele
 from .common import *
+
+warnings.filterwarnings("ignore")
 
 def get_toc_from_cfg():
     if config['list'] and len(config['list']) > 0:
