@@ -110,7 +110,7 @@ def tr_download_page(url, art, imgs):
     time.sleep(config['wait'])
     
 
-def update_config(user_cfg):
+def update_config(cfg_fname, user_cfg):
     global get_toc
     global get_article
     
@@ -129,7 +129,8 @@ def update_config(user_cfg):
     set_img_pool(ThreadPoolExecutor(config['imgThreads']))
     
     if config['external']:
-        mod = load_module(config['external'])
+        ex_fname = path.join(path.dirname(cfg_fname), config['external'])
+        mod = load_module(ex_fname)
         get_toc = getattr(mod, 'get_toc', get_toc)
         get_article = getattr(mod, 'get_article', get_article)
         
@@ -148,7 +149,7 @@ def main():
         return
         
     user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
-    update_config(user_cfg)
+    update_config(cfg_fname, user_cfg)
     
     if config['selenium']: 
         crawl_sele()
