@@ -46,6 +46,7 @@ def tr_download_img(url, imgs, picname):
         retry=config['retry'],
         timeout=config['timeout'],
         proxies=config['proxy'],
+        verify=False,
     ).content
     print(f'{url} 下载成功')
     data = opti_img(data, config['optiMode'], config['colors']) or b''

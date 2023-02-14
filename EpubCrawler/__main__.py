@@ -4,6 +4,7 @@
 from urllib.parse import urljoin
 import sys
 import json
+import warnings
 from pyquery import PyQuery as pq
 import time
 from os import path
@@ -18,6 +19,8 @@ from .img import *
 from .config import config
 from .sele_crawler import crawl_sele
 from .common import *
+
+warnings.filterwarnings("ignore")
 
 def get_toc_from_cfg():
     if config['list'] and len(config['list']) > 0:
@@ -34,6 +37,7 @@ def get_toc_from_cfg():
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
+        verify=False,
     ).content.decode(config['encoding'], 'ignore')
     return get_toc(html, config['url'])
     
@@ -93,6 +97,7 @@ def tr_download_page(url, art, imgs):
         headers=config['headers'],
         timeout=config['timeout'],
         proxies=config['proxy'],
+        verify=False,
     ).content.decode(config['encoding'], 'ignore')
     print(f'{url} 下载成功')
     art.update(get_article(html, url))
@@ -105,7 +110,7 @@ def tr_download_page(url, art, imgs):
     time.sleep(config['wait'])
     
 
-def update_config(user_cfg):
+def update_config(cfg_fname, user_cfg):
     global get_toc
     global get_article
     
@@ -124,7 +129,8 @@ def update_config(user_cfg):
     set_img_pool(ThreadPoolExecutor(config['imgThreads']))
     
     if config['external']:
-        mod = load_module(config['external'])
+        ex_fname = path.join(path.dirname(cfg_fname), config['external'])
+        mod = load_module(ex_fname)
         get_toc = getattr(mod, 'get_toc', get_toc)
         get_article = getattr(mod, 'get_article', get_article)
         
@@ -178,7 +184,7 @@ def main():
         return
         
     user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
-    update_config(user_cfg)
+    update_config(cfg_fname, user_cfg)
     
     if config['selenium']: 
         crawl_sele()
