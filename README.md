@@ -131,6 +131,10 @@ CONFIG: JSON 格式的配置文件，默认为当前工作目录中的 config.js
 	接受页面 HTML 和 URL，返回字典，`title`键是标题，`content`键是正文
 	
 	⚠该配置项会覆盖`link`，`title`和`content`，但不会覆盖`list`⚠
+	
++   `sizeLimit：String`（可空）
+
+	EPUB 大小限制，格式为【数字+字母单位】，默认为`100m`。
 
 用于抓取我们的 PyTorch 1.4 文档的示例：
 
