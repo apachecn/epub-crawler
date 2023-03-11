@@ -192,7 +192,7 @@ def main():
         user_cfg = yaml.safe_load(cont)
     elif ext == 'txt':
         urls = [l.strip() for l in cont.split('\n')]
-        urls = [l for l in user_cfg if l]
+        urls = [l for l in urls if l]
         name = re.sub('\.\w+$', '', path.basename(cfg_fname))
         user_cfg = {
             'name': name,
