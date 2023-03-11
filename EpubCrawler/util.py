@@ -141,3 +141,7 @@ def size_str_to_int(s):
     
     factor = factor_map[m.group(2)]
     return int(base * factor)
+    
+def extname(fname):
+    m = re.search(r'\.(\w+)$', fname)
+    return m.group(1) if m else ''

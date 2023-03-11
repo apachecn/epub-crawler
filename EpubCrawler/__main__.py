@@ -4,6 +4,7 @@
 from urllib.parse import urljoin
 import sys
 import json
+import yaml
 import warnings
 from pyquery import PyQuery as pq
 import time
@@ -182,8 +183,25 @@ def main():
     if not path.exists(cfg_fname):
         print('please provide config file')
         return
-        
-    user_cfg = json.loads(open(cfg_fname, encoding='utf-8').read())
+    
+    ext = extname(cfg_fname).lower()
+    cont = open(cfg_fname, encoding='utf-8').read()
+    if ext == 'json':
+        user_cfg = json.loads(cont)
+    elif ext in ['yaml', 'yml']:
+        user_cfg = yaml.safe_load(cont)
+    elif ext == 'txt':
+        urls = [l.strip() for l in cont.split('\n')]
+        urls = [l for l in user_cfg if l]
+        name = re.sub('\.\w+$', '', path.basename(cfg_fname))
+        user_cfg = {
+            'name': name,
+            'url': urls[0] if urls else '',
+            'list': urls,
+        }
+    else:
+        print('配置文件必须为 JSON、YAML 或 TXT')
+        return
     update_config(cfg_fname, user_cfg)
     
     if config['selenium']: 
