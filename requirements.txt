@@ -4,3 +4,4 @@ GenEpub
 imgyaso
 readability-lxml
 selenium
+pyyaml
