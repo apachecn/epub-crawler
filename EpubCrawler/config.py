@@ -18,7 +18,7 @@ config = {
     'optiMode': 'quant',
     'colors': 8,
     'timeout': None,
-    'connTimeout': 1,
+    'connTimeout': 10,
     'readTimeout': 60,
 	'imgSrc': ['data-src', 'data-original-src', 'src'],
     'proxy': '',
