@@ -97,16 +97,22 @@ def wait_content_cb(driver):
     ''', config['title'], config['content'])
 
 def download_page(url, art, imgs):
-    print(url)
+    hash = hashlib.md5(url.encode('utf-8')).hexdigest()
+    cache = load_article(hash)
+    if cache is not None and config['cache']:
+        print(f'{url} 已存在于本地缓存中')
+        art.update(cache)
+        art['content'] = process_img(
+            art['content'], imgs,
+            page_url=url,
+            img_prefix='../Images/',
+        )
+        return
     
     if not hasattr(trlocal, 'driver'):
         trlocal.driver = create_driver()
         drivers.append(trlocal.driver)
     driver = trlocal.driver
-    
-    if not re.search(r'^https?://', url):
-        articles.append({'title': url, 'content': ''})
-        return
     driver.get(url)
     # 显式等待
     if config['waitContent']:
@@ -114,6 +120,8 @@ def download_page(url, art, imgs):
             .until(wait_content_cb, "无法获取标题或内容")
     html = driver.find_element_by_css_selector('body').get_attribute('outerHTML')
     art.update(get_article(html, url))
+    save_article(hash, art)
+    print(f'{url} 下载成功')
     art['content'] = process_img(art['content'], imgs, page_url=url, img_prefix='../Images/')
     time.sleep(config['wait'])
 
@@ -147,6 +155,9 @@ def crawl_sele():
     pool = ThreadPoolExecutor(config['textThreads'])
     hdls = []
     for url in config['list']:
+        if not re.search(r'^https?://', url):
+            articles.append({'title': url, 'content': ''})
+            continue
         art = {}
         articles.append(art)
         h = pool.submit(download_page_safe, url, art, imgs)
