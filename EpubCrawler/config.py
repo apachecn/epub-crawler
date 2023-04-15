@@ -23,7 +23,7 @@ config = {
 	'imgSrc': ['data-src', 'data-original-src', 'src'],
     'proxy': '',
     'textThreads': 8,
-    'imgThreads': 8,
+    'imgThreads': 24,
     'external': None,
     'checkStatus': False,
     'cache': True,
