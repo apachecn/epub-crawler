@@ -90,24 +90,30 @@ def tr_download_page(url, art, imgs):
             img_prefix='../Images/',
         )
         return
-    
-    html = request_retry(
-        'GET', url,
-        retry=config['retry'],
-        check_status=config['checkStatus'],
-        headers=config['headers'],
-        timeout=config['timeout'],
-        proxies=config['proxy'],
-        verify=False,
-    ).content.decode(config['encoding'], 'ignore')
-    print(f'{url} 下载成功')
-    art.update(get_article(html, url))
+    for i in range(config['retry']):
+        html = request_retry(
+            'GET', url,
+            retry=config['retry'],
+            check_status=config['checkStatus'],
+            headers=config['headers'],
+            timeout=config['timeout'],
+            proxies=config['proxy'],
+            verify=False,
+        ).content.decode(config['encoding'], 'ignore')
+        r = get_article(html, url)
+        if not config['checkBlank'] or \
+           (r['title'] and r['content']):
+           break
+        if i == config['retry'] - 1:
+            raise Exception(f'{url} 标题或内容为空')
+    art.update(r)
     save_article(hash, art)
     art['content'] = process_img(
         art['content'], imgs,
         page_url=url,
         img_prefix='../Images/',
     )
+    print(f'{url} 下载成功')
     time.sleep(config['wait'])
     
 

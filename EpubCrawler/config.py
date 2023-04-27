@@ -26,6 +26,7 @@ config = {
     'imgThreads': 24,
     'external': None,
     'checkStatus': False,
+    'checkBlank': True,
     'cache': True,
     'waitContent': False,
     'debug': False,
